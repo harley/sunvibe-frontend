@@ -7,10 +7,12 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { MonthTransactionsPage } from '../pages/month-transactions/month-transactions';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { MonthTransactionsPage } from '../pages/month-transactions/month-transactions';
+import { BuyTokenPage } from '../pages/buy-token/buy-token';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ContactPage,
     HomePage,
     TabsPage,
-    MonthTransactionsPage
+    MonthTransactionsPage,
+    BuyTokenPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ContactPage,
     HomePage,
     TabsPage,
-    MonthTransactionsPage
+    MonthTransactionsPage,
+    BuyTokenPage
   ],
   providers: [
     StatusBar,

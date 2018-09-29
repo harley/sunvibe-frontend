@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MonthTransactionsPage } from '../month-transactions/month-transactions';
+import { BuyTokenPage } from '../buy-token/buy-token';
 
 @Component({
   selector: 'page-home',
@@ -22,4 +23,7 @@ export class HomePage {
     });
   }
 
+  buyTokenSelected(event) {
+    this.navCtrl.push(BuyTokenPage);
+  }
 }
