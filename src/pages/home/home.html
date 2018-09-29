@@ -10,7 +10,7 @@
       <ion-col col-8>
         <div>You have</div>
         <div style='font-size:2em'>
-          <span>10,123</span> tokens
+          <span>{{ userData.tokenCount}}</span> tokens
         </div>
       </ion-col>
       <ion-col col-4>
@@ -19,13 +19,18 @@
     </ion-row>
     <ion-row>
       <ion-col col-12>
+        <p>Ways to make money:</p>
         <p>
-          This starter project comes with simple tabs-based layout for apps
-          that are going to primarily use a Tabbed UI.
+          <ion-icon name="sunny" style="color: gold"></ion-icon>
+          Buy gold tokens to support building new solar panels.
+        </p>
+        <p>
+          <ion-icon name="sunny" style="color: green"></ion-icon>
+          Sell or buy green tokens from the Exchange.
         </p>
         <h3>Transactions</h3>
         <ion-list>
-          <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+          <button ion-item *ngFor="let item of userData.transactions" (click)="itemSelected(item)">
             {{ item.month }}
             <span item-end>{{ item.amount }}</span>
           </button>

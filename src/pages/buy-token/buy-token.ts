@@ -14,7 +14,7 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class BuyTokenPage {
   tokenAmount = 0
-  unitPrice = 23000 // make it dynamic
+  unitPrice = 700 // make it dynamic
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

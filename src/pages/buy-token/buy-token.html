@@ -15,10 +15,10 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
-      <ion-range min="0" max="200" [(ngModel)]="tokenAmount" color="secondary">
-        <ion-label range-left>0</ion-label>
-        <ion-label range-right>200</ion-label>
+    <ion-item item-end>
+      <ion-icon name="cart" item-start></ion-icon>
+      <ion-range min="0" max="200" [(ngModel)]="tokenAmount" color="secondary" item-end>
+        <ion-label range-right>{{ tokenAmount }}</ion-label>
       </ion-range>
     </ion-item>
   </ion-list>

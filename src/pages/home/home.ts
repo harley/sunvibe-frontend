@@ -8,13 +8,26 @@ import { BuyTokenPage } from '../buy-token/buy-token';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  userData: Object
 
-  items = [
+  fakeTransactions = [
     { month: 'August', amount: '10K' },
     { month: 'July', amount: '9K' }
   ]
 
   constructor(public navCtrl: NavController) {
+    this.userData = {
+      totalCount: 0,
+      transactions: []
+    }
+  }
+
+  ionViewDidLoad(){
+    // replace with userService to get data
+    this.userData = {
+      tokenCount: 10123,
+      transactions: this.fakeTransactions
+    }
   }
 
   itemSelected(item) {
