@@ -50,8 +50,16 @@
           </ion-list>
           <ion-list *ngSwitchCase="'trade'">
             <button ion-item *ngFor="let item of userData.tradeTransactions" (click)="itemSelected(item)">
-              {{ item.month }}
-              <span item-end>{{ item.amount }}</span>
+              <ion-avatar item-start>
+                <img src="{{ item.avatarUrl }}">
+              </ion-avatar>
+              <p>{{ item.time }}</p>
+              <h3>{{ item.description }}</h3>
+              <p>{{ item.status }}</p>
+              <div item-end style="text-align: right">
+                <div> {{ item.ETH }} ETH </div>
+                <p> {{ item.VND }} VND </p>
+              </div>
             </button>
           </ion-list>
         </div>

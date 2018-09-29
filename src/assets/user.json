@@ -7,10 +7,22 @@
       { "month": "June", "amount": "8K" }
     ],
     "tradeTransactions": [
-      { "month": "August", "amount": "1K" },
-      { "month": "July", "amount": "2K" },
-      { "month": "June", "amount": "3K" }
+      {
+        "avatarUrl": "https://robohash.org/T2E.png?set=set1&size=150x150",
+        "time": "09/29/2018 10:26",
+        "description": "0x1abc2927a0",
+        "status": "Confirmed",
+        "ETH": 1,
+        "VND": 5299308
+      },
+      {
+        "avatarUrl": "https://robohash.org/8FU.png?set=set1&size=150x150",
+        "time": "09/29/2018 09:52",
+        "description": "0x18fa8221",
+        "status": "Confirmed",
+        "ETH": 0.1,
+        "VND": 529930
+      }
     ]
-
   }
 }
