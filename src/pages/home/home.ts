@@ -25,7 +25,7 @@ export class HomePage {
 
   ionViewDidLoad(){
     // replace with userService to get data
-    this.userData = this.userService.getUserData().subscribe(data => {
+    this.userService.getUserData().subscribe(data => {
       this.userData = data.userData
     })
   }

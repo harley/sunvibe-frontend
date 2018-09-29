@@ -15,14 +15,28 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item item-end>
+    <ion-item inset>
       <ion-icon name="cart" item-start></ion-icon>
       <ion-range min="0" max="200" [(ngModel)]="tokenAmount" color="secondary" item-end>
         <ion-label range-right>{{ tokenAmount }}</ion-label>
       </ion-range>
     </ion-item>
   </ion-list>
+
   <h2>Amount: {{ tokenAmount }} </h2>
-  <h2>Price: {{ totalPrice() }} </h2>
+  <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <h2>VND: {{ totalPrice() }} </h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <img src="assets/imgs/eth.png" alt="" style="width:64px" item-start>
+          <span style="font-size:2em">{{ totalPriceEth() }}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   <button ion-button full (click)="confirmBuy()">Buy</button>
 </ion-content>

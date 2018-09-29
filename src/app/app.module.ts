@@ -16,6 +16,7 @@ import { MonthTransactionsPage } from '../pages/month-transactions/month-transac
 import { BuyTokenPage } from '../pages/buy-token/buy-token';
 
 import { UserService } from '../services/user.service';
+import { CoinService } from '../services/coin.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UserService } from '../services/user.service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserService
+    UserService,
+    CoinService
   ]
 })
 export class AppModule {}

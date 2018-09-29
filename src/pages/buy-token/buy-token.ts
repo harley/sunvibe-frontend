@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { CoinService } from '../../services/coin.service';
 
 /**
  * Generated class for the BuyTokenPage page.
@@ -15,12 +16,21 @@ import { NavController, NavParams } from 'ionic-angular';
 export class BuyTokenPage {
   tokenAmount = 0
   unitPrice = 700 // make it dynamic
+  quotes = {
+    VND: {
+      price: 1
+    }
+  }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public coinService: CoinService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyTokenPage');
+
+    this.coinService.fetchRate().subscribe(data => {
+      this.quotes = data.data.quotes
+    })
   }
 
   confirmBuy() {
@@ -38,5 +48,10 @@ export class BuyTokenPage {
     });
 
     return formatter.format(this.tokenAmount * this.unitPrice);
+  }
+
+  totalPriceEth() {
+    console.log(this.quotes);
+    return (this.tokenAmount * this.unitPrice / this.quotes.VND.price);
   }
 }

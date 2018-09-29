@@ -6,8 +6,12 @@ import { Http } from '@angular/http';
 export class UserService {
   constructor(public http: Http){}
 
-  getUserData(){
+  getUserData() {
     return this.http.get("./assets/user.json")
       .map((res:any) => res.json());
+  }
+
+  buyToken(count: Number) {
+    //
   }
 }
