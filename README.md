@@ -9,7 +9,7 @@
 
 ```bash
 ionic build --prod
-surge www
+surge www --domain sunvibe.surge.sh
 ```
 
 ## Customer Calculator
