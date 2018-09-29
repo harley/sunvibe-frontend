@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { MonthTransactionsPage } from '../month-transactions/month-transactions';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +8,18 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  items = [
+    { month: 'August', amount: '10K' },
+    { month: 'July', amount: '9K' }
+  ]
 
+  constructor(public navCtrl: NavController) {
+  }
+
+  itemSelected(item) {
+    this.navCtrl.push(MonthTransactionsPage, {
+      item: item
+    });
   }
 
 }

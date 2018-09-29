@@ -1,17 +1,36 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>SunVibe</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-8>
+        <div>You have</div>
+        <div style='font-size:2em'>
+          <span>10,123</span> tokens
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button style="float:right">Button</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <p>
+          This starter project comes with simple tabs-based layout for apps
+          that are going to primarily use a Tabbed UI.
+        </p>
+        <h3>Transactions</h3>
+        <ion-list>
+          <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+            {{ item.month }}
+            <span item-end>{{ item.amount }}</span>
+          </button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
