@@ -1,10 +1,16 @@
 {
   "userData": {
-    "tokenCount": 10000,
-    "transactions": [
+    "tokenCount": 100,
+    "dividendTransactions": [
       { "month": "August", "amount": "10K" },
       { "month": "July", "amount": "9K" },
       { "month": "June", "amount": "8K" }
+    ],
+    "tradeTransactions": [
+      { "month": "August", "amount": "1K" },
+      { "month": "July", "amount": "2K" },
+      { "month": "June", "amount": "3K" }
     ]
+
   }
 }

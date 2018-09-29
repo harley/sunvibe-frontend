@@ -28,13 +28,33 @@
           <ion-icon name="sunny" style="color: green"></ion-icon>
           Sell or buy green tokens from the Exchange.
         </p>
-        <h3>Transactions</h3>
-        <ion-list>
-          <button ion-item *ngFor="let item of userData.transactions" (click)="itemSelected(item)">
-            {{ item.month }}
-            <span item-end>{{ item.amount }}</span>
-          </button>
-        </ion-list>
+        <h3>Payout</h3>
+
+        <div padding>
+          <ion-segment [(ngModel)]="payoutMode">
+            <ion-segment-button value="dividend">
+              Dividend
+            </ion-segment-button>
+            <ion-segment-button value="trade">
+              Trade
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div [ngSwitch]="payoutMode">
+          <ion-list *ngSwitchCase="'dividend'">
+            <button ion-item *ngFor="let item of userData.dividendTransactions" (click)="itemSelected(item)">
+              {{ item.month }}
+              <span item-end>{{ item.amount }}</span>
+            </button>
+          </ion-list>
+          <ion-list *ngSwitchCase="'trade'">
+            <button ion-item *ngFor="let item of userData.tradeTransactions" (click)="itemSelected(item)">
+              {{ item.month }}
+              <span item-end>{{ item.amount }}</span>
+            </button>
+          </ion-list>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

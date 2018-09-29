@@ -10,16 +10,13 @@ import { UserService } from '../../services/user.service';
 })
 export class HomePage {
   userData: Object
-
-  fakeTransactions = [
-    { month: 'August', amount: '10K' },
-    { month: 'July', amount: '9K' }
-  ]
+  payoutMode = 'dividend'
 
   constructor(public navCtrl: NavController, public userService: UserService) {
     this.userData = {
       totalCount: 0,
-      transactions: []
+      dividendTransactions: [],
+      tradeTransactions: []
     }
   }
 
