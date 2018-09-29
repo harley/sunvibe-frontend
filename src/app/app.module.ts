@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
@@ -14,6 +15,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { MonthTransactionsPage } from '../pages/month-transactions/month-transactions';
 import { BuyTokenPage } from '../pages/buy-token/buy-token';
 
+import { UserService } from '../services/user.service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -26,6 +29,7 @@ import { BuyTokenPage } from '../pages/buy-token/buy-token';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -41,7 +45,8 @@ import { BuyTokenPage } from '../pages/buy-token/buy-token';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserService
   ]
 })
 export class AppModule {}

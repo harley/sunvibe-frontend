@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MonthTransactionsPage } from '../month-transactions/month-transactions';
 import { BuyTokenPage } from '../buy-token/buy-token';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'page-home',
@@ -15,7 +16,7 @@ export class HomePage {
     { month: 'July', amount: '9K' }
   ]
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public userService: UserService) {
     this.userData = {
       totalCount: 0,
       transactions: []
@@ -24,10 +25,9 @@ export class HomePage {
 
   ionViewDidLoad(){
     // replace with userService to get data
-    this.userData = {
-      tokenCount: 10123,
-      transactions: this.fakeTransactions
-    }
+    this.userData = this.userService.getUserData().subscribe(data => {
+      this.userData = data.userData
+    })
   }
 
   itemSelected(item) {
