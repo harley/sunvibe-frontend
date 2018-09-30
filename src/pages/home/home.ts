@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 export class HomePage {
   userData: Object
   payoutMode = 'dividend'
+  totalTokenCount = 0
 
   constructor(public navCtrl: NavController, public userService: UserService) {
     this.userData = {
@@ -25,8 +26,8 @@ export class HomePage {
     this.userService.getUserData().subscribe(data => {
       this.userData = data.userData
     })
-    this.userService.getAccountInfo().then(data => {
-      console.log(data);
+    this.userService.totalSupply().then(data => {
+      console.log('total supply', data);
     });
   }
 

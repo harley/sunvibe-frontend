@@ -1,4 +1,4 @@
-[{
+export const CONTRACT_JSON = [{
   "constant": true,
   "inputs": [],
   "name": "name",

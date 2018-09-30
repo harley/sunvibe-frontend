@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
-import  Web3  from 'web3';
-import tokenAbi from './tokenAbi.json';
-import * as TruffleContract from 'truffle-contract';
-import CONTRACT_ADDRESS  from './contract-address';
-// declare let require: any;
+import  Web3  from '../assets/web3.min';
+import { CONTRACT_JSON } from '../assets/tokenApi.js';
+import { CONTRACT_ADDRESS } from './contract-address';
+
 declare let window;
 @Injectable()
 export class UserService {
@@ -13,66 +12,52 @@ export class UserService {
   // private web3accounts;
   private contract;
 
+  web3
+  web3accounts
+
   constructor(public http: Http){
-    if (typeof window.web3 !== 'undefined') {
-      this.web3Provider = window.web3.currentProvider;
-      } else {
-      this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8100');
-      }
-      window.web3 = new Web3(this.web3Provider);
-      this.contract = new window.web3.eth.contract(tokenAbi, CONTRACT_ADDRESS);
-      console.log(this.contract);
+    this.web3 = new Web3(window.web3.currentProvider);
+    this.contract = new this.web3.eth.Contract(CONTRACT_JSON, CONTRACT_ADDRESS);
+    // console.log('provider: ', window.web3.currentProvider);
+    // console.log('contract json', CONTRACT_JSON)
+    // console.log('contract address', CONTRACT_ADDRESS)
+
+    console.log(this.contract);
   }
 
   getUserData() {
     return this.http.get("./assets/user.json")
       .map((res:any) => res.json());
   }
-  async getAccountInfo() {
-    return new Promise((resolve, reject) => {
-      window.web3.eth.getCoinbase(function (err, account) {
-        if (err === null) {
-          window.web3.eth.getBalance(account, function (err, balance) {
-            if (err === null) {
-              return resolve({
-                fromAccount: account,
-                balance: window.web3.fromWei(balance.toNumber(), 'tether')
-              });
-            } else {
-              return reject('error!');
-            }
-          });
-        }
-      });
-    });
-  }
 
-  transferEther(
-    _transferFrom,
-    _transferTo,
-    _amount,
-    _remarks
-  ) {
-    let that = this;
-    return new Promise((resolve, reject) => {
-      let paymentContract = TruffleContract(tokenAbi);
-      paymentContract.setProvider(that.web3Provider);
-      paymentContract.deployed().then(function (instance) {
-        return instance.transferFund(
-          _transferTo, {
-            from: _transferFrom,
-            value: window.web3.utils.fromWei(_amount, 'ether')
-          });
-      }).then(function (status) {
-        if (status) {
-          return resolve({
-            status: true
-          });
-        }
-      }).catch(function (error) {
-        console.log(error);
-        return reject('Error in transferEther service call');
+  async totalSupply(){
+    let web3accounts = await this.web3.eth.getAccounts();
+    console.log(web3accounts);
+
+    for(let i=0; i < web3accounts.length; i++) {
+      //get balance of each account
+      this.web3.eth.getBalance(web3accounts[i]).then(balance => {
+        balance = this.web3.utils.fromWei(balance);
+        console.log("Account " + i + "(" + web3accounts[i] + ") has " + balance + " ethers");
       });
-    });
+    }
+
+    var result = await this.contract.methods.totalSupply().call({from: web3accounts[0]});
+    console.log(result);
+    var total = this.web3.utils.fromWei(result, 'ether');
+
+
+    // var result = await this.contract.methods.totalSupply().call({from: this.web3accounts[0]});
+    // console.log(result);
+    // var total = this.web3.utils.fromWei(result, 'ether');
+    // alert("TotaL " + total);
+
+    let balance = 123
+    return new Promise((resolve, reject) => {
+      return resolve({
+        balance: balance,
+        total: total
+      })
+    })
   }
 }
