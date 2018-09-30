@@ -26,7 +26,6 @@ export class BuyTokenPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BuyTokenPage');
 
     this.coinService.fetchRate().subscribe(data => {
       this.quotes = data.data.quotes
@@ -51,7 +50,6 @@ export class BuyTokenPage {
   }
 
   totalPriceEth() {
-    console.log(this.quotes);
     return (this.tokenAmount * this.unitPrice / this.quotes.VND.price);
   }
 }

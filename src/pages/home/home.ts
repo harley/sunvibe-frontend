@@ -25,6 +25,9 @@ export class HomePage {
     this.userService.getUserData().subscribe(data => {
       this.userData = data.userData
     })
+    this.userService.getAccountInfo().then(data => {
+      console.log(data);
+    });
   }
 
   itemSelected(item) {
