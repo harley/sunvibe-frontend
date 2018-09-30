@@ -16,7 +16,7 @@ import { UserService } from '../../services/user.service';
 })
 export class BuyTokenPage {
   tokenAmount = 0
-  unitPrice = 700 // make it dynamic
+  unitPrice = 70 // make it dynamic
   quotes = {
     VND: {
       price: 1
@@ -35,8 +35,14 @@ export class BuyTokenPage {
 
   async confirmBuy() {
     // alert(`Confirm buying ${this.tokenAmount} for ${this.totalPrice()}?`);
-    // this.navCtrl.pop();
-    this.userService.buyToken(this.totalPriceEth());
+    let totalPrice = this.totalPriceEth();
+    if (totalPrice > 0) {
+      this.userService.buyToken(totalPrice.toFixed(6), this.tokenAmount);
+    } else {
+      alert("Amount > 0 please")
+    }
+
+    this.navCtrl.pop();
   }
 
   totalPrice() {

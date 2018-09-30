@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import  Web3  from '../assets/web3.min';
 import { CONTRACT_JSON } from '../assets/tokenApi.js';
 import { CONTRACT_ADDRESS } from './contract-address';
@@ -8,12 +8,11 @@ import { CONTRACT_ADDRESS } from './contract-address';
 declare let window;
 @Injectable()
 export class UserService {
-  private web3Provider: null;
-  // private web3accounts;
   private contract;
 
   web3
   web3accounts
+  transactionHash
 
   constructor(public http: Http){
     this.web3 = new Web3(window.web3.currentProvider);
@@ -34,6 +33,7 @@ export class UserService {
     let web3accounts = await this.web3.eth.getAccounts();
     this.web3accounts = web3accounts;
     console.log(web3accounts);
+    let balance
 
     for(let i=0; i < web3accounts.length; i++) {
       //get balance of each account
@@ -47,13 +47,6 @@ export class UserService {
     console.log(result);
     var total = this.web3.utils.fromWei(result, 'ether');
 
-
-    // var result = await this.contract.methods.totalSupply().call({from: this.web3accounts[0]});
-    // console.log(result);
-    // var total = this.web3.utils.fromWei(result, 'ether');
-    // alert("TotaL " + total);
-
-    let balance = 123
     return new Promise((resolve, reject) => {
       return resolve({
         balance: balance,
@@ -62,17 +55,44 @@ export class UserService {
     })
   }
 
-  async buyToken(eth: Number) {
+  async buyToken(eth: string, tokenAmount: number) {
     let account = this.web3accounts[0];
-    let wei = this.web3.utils.toWei(eth.toString(), 'ether');
+    let wei = this.web3.utils.toWei(eth, 'ether');
     console.log("buying wei = ", wei)
 
-    var result = await this.web3.eth.sendTransaction(
+    this.web3.eth.sendTransaction(
       {
         from: account,
         to: CONTRACT_ADDRESS,
         value: wei
-      }
-    );
+      }, (err, transactionHash) => {
+        if (err) {
+            console.log('error', err);
+        } else {
+          console.log('transactionHash: ', transactionHash);
+          // post to API
+
+          let headers = new Headers( { 'Content-Type' : 'application/json' });
+          let options = new RequestOptions({ headers: headers });
+
+          let data = JSON.stringify({
+            transaction_hash: transactionHash,
+            token_amount: tokenAmount
+          });
+
+          const PURCHASE_URL = "https://sunvibe-dashboard.herokuapp.com/api/v1/purchases"
+          this.http.post(`${PURCHASE_URL}?transaction_hash=${transactionHash}&token_amount=${tokenAmount}`, data, options)
+            .toPromise()
+            .then(response => {
+              console.log("API response", response.json());
+            }).catch(error => {
+              console.log(error.status);
+            });
+
+          return new Promise((resolve, _) => {
+            return resolve({transactionHash: transactionHash});
+          })
+        }
+    });
   }
 }
