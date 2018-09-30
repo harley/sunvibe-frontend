@@ -12,10 +12,10 @@ export class HomePage {
   userData: Object
   payoutMode = 'dividend'
   totalTokenCount = 0
+  tokenCount = 0
 
   constructor(public navCtrl: NavController, public userService: UserService) {
     this.userData = {
-      totalCount: 0,
       dividendTransactions: [],
       tradeTransactions: []
     }
@@ -29,6 +29,11 @@ export class HomePage {
     this.userService.totalSupply().then(data => {
       console.log('total supply', data);
     });
+
+    this.userService.getPurchases().subscribe(data => {
+      console.log('all purchases', data)
+      this.tokenCount = data.map(e => e.token_amount).reduce((a, b) => a + b, 0);
+    })
   }
 
   itemSelected(item) {

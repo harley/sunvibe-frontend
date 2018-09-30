@@ -13,6 +13,7 @@ export class UserService {
   web3
   web3accounts
   transactionHash
+  PURCHASE_URL = "https://sunvibe-dashboard.herokuapp.com/api/v1/purchases"
 
   constructor(public http: Http){
     this.web3 = new Web3(window.web3.currentProvider);
@@ -80,8 +81,7 @@ export class UserService {
             token_amount: tokenAmount
           });
 
-          const PURCHASE_URL = "https://sunvibe-dashboard.herokuapp.com/api/v1/purchases"
-          this.http.post(`${PURCHASE_URL}?transaction_hash=${transactionHash}&token_amount=${tokenAmount}`, data, options)
+          this.http.post(`${this.PURCHASE_URL}?transaction_hash=${transactionHash}&token_amount=${tokenAmount}`, data, options)
             .toPromise()
             .then(response => {
               console.log("API response", response.json());
@@ -94,5 +94,10 @@ export class UserService {
           })
         }
     });
+  }
+
+  getPurchases() {
+    return this.http.get(this.PURCHASE_URL)
+      .map((res:any) => res.json());
   }
 }
