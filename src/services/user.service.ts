@@ -32,6 +32,7 @@ export class UserService {
 
   async totalSupply(){
     let web3accounts = await this.web3.eth.getAccounts();
+    this.web3accounts = web3accounts;
     console.log(web3accounts);
 
     for(let i=0; i < web3accounts.length; i++) {
@@ -59,5 +60,19 @@ export class UserService {
         total: total
       })
     })
+  }
+
+  async buyToken(eth: Number) {
+    let account = this.web3accounts[0];
+    let wei = this.web3.utils.toWei(eth.toString(), 'ether');
+    console.log("buying wei = ", wei)
+
+    var result = await this.web3.eth.sendTransaction(
+      {
+        from: account,
+        to: CONTRACT_ADDRESS,
+        value: wei
+      }
+    );
   }
 }

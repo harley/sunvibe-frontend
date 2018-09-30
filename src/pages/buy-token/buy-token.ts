@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CoinService } from '../../services/coin.service';
+import { UserService } from '../../services/user.service';
 
 /**
  * Generated class for the BuyTokenPage page.
@@ -22,7 +23,7 @@ export class BuyTokenPage {
     }
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public coinService: CoinService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public coinService: CoinService, public userService: UserService) {
   }
 
   ionViewDidLoad() {
@@ -32,9 +33,10 @@ export class BuyTokenPage {
     })
   }
 
-  confirmBuy() {
-    alert(`Confirm buying ${this.tokenAmount} for ${this.totalPrice()}?`);
-    this.navCtrl.pop();
+  async confirmBuy() {
+    // alert(`Confirm buying ${this.tokenAmount} for ${this.totalPrice()}?`);
+    // this.navCtrl.pop();
+    this.userService.buyToken(this.totalPriceEth());
   }
 
   totalPrice() {
